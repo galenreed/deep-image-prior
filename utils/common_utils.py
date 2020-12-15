@@ -194,6 +194,19 @@ def torch_to_np(img_var):
     '''
     return img_var.detach().cpu().numpy()[0]
 
+def colorToMagnitude(img):
+  Re = img[0,:,:]
+  Im = img[1,:,:]
+  return np.sqrt(Re**2 + Im**2)
+
+
+
+def scaleToMaxOne(img):
+  absMin = np.abs(img.min())
+  absMax = np.abs(img.max())
+  maxMinMax = np.array([absMin, absMax]).max()
+  return img / maxMinMax
+
 
 def optimize(optimizer_type, parameters, closure, LR, num_iter):
     """Runs optimization loop.
